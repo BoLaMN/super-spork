@@ -32,9 +32,6 @@ services:
           type: web
           name: house-planner-backend
           envVarKey: RENDER_EXTERNAL_URL
-          # Note: You might need to append '/api' to this value in the Render dashboard
-          # or update the frontend to handle the base URL.
-          # For now, we'll rely on the user checking this.
 
 databases:
   - name: house-planner-db

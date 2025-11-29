@@ -14,14 +14,14 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/items', itemsRouter);
-app.use('/api/logistics', logisticsRouter);
-app.use('/api/rooms', roomsRouter);
-app.use('/api/settings', settingsRouter);
-app.use('/api/priorities', prioritiesRouter);
+app.use('/items', itemsRouter);
+app.use('/logistics', logisticsRouter);
+app.use('/rooms', roomsRouter);
+app.use('/settings', settingsRouter);
+app.use('/priorities', prioritiesRouter);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
     res.json({ status: 'ok', message: 'House Planner API is running' });
 });
 
@@ -34,5 +34,5 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
-    console.log(`📊 API endpoints available at http://localhost:${PORT}/api`);
+    console.log(`📊 API endpoints available at http://localhost:${PORT}`);
 });

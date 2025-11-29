@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const getApiBase = () => {
+    const url = import.meta.env.VITE_API_URL;
+    // If no VITE_API_URL is set (local dev), default to localhost:3001
+    if (!url) return 'http://localhost:3001';
+    // If the URL ends with a slash, remove it
+    if (url.endsWith('/')) return url.slice(0, -1);
+    return url;
+};
+
+const API_BASE = getApiBase();
 
 // Generic fetch wrapper with error handling
 async function fetchAPI(endpoint, options = {}) {
