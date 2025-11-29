@@ -3,7 +3,7 @@ import db from '../database.js';
 const VALID_STATUSES = ['Needed', 'Researching', 'Ready to Purchase', 'Ordered', 'Delivered', 'Completed'];
 const VALID_COMPLETION_STATUSES = ['Pending', 'In Progress', 'Completed'];
 
-export function validateItem(req, res, next) {
+export async function validateItem(req, res, next) {
     const { name, room_id, status, priority } = req.body;
 
     // Required fields for POST
@@ -24,13 +24,16 @@ export function validateItem(req, res, next) {
 
     // Validate priority if provided
     if (priority) {
-        const validPriority = db.prepare('SELECT 1 FROM priorities WHERE name = ?').get(priority);
-        if (!validPriority) {
-            // Fallback for legacy or special values if needed, or just strict check
-            // For now, strict check against DB
-             return res.status(400).json({
-                error: `Invalid priority: ${priority}. Must be one of the defined priorities.`
-            });
+        try {
+            const result = await db.query('SELECT 1 FROM priorities WHERE name = $1', [priority]);
+            if (result.rows.length === 0) {
+                return res.status(400).json({
+                    error: `Invalid priority: ${priority}. Must be one of the defined priorities.`
+                });
+            }
+        } catch (err) {
+            console.error('Error validating priority:', err);
+            return res.status(500).json({ error: 'Database error during validation' });
         }
     }
 
