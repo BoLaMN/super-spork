@@ -73,26 +73,36 @@
   --font-display: 'Outfit', 'Inter', sans-serif;
 }
 
-html, body {
+html {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
-  background: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
-  background-attachment: fixed;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  background-color: #0f172a; /* Fallback/Overscroll color */
 }
 
 body {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   font-family: var(--font-sans);
   color: var(--color-text-primary);
   line-height: 1.6;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Background Animation - Removed for cleaner look */
+/* Fixed background - Using pseudo-element prevents iOS Safari scroll issues */
 body::before {
-  display: none;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
+  pointer-events: none;
 }
 
 @keyframes gradientShift {
