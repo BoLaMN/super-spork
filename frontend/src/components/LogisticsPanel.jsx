@@ -6,7 +6,7 @@ import './LogisticsPanel.css';
 const STATUSES = ['Pending', 'In Progress', 'Completed'];
 
 export default function LogisticsPanel() {
-    const { logistics, deleteLogistics } = useApp();
+    const { logistics, deleteLogistics, updateLogistics } = useApp();
     const [filterService, setFilterService] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +22,16 @@ export default function LogisticsPanel() {
         const matchesStatus = !filterStatus || entry.completion_status === filterStatus;
         return matchesService && matchesStatus;
     });
+
+    const handleToggleStatus = async (entry) => {
+        const newStatus = entry.completion_status === 'Completed' ? 'Pending' : 'Completed';
+        try {
+            await updateLogistics(entry.id, { ...entry, completion_status: newStatus });
+        } catch (error) {
+            console.error('Failed to update status:', error);
+            alert('Failed to update status');
+        }
+    };
 
     const handleEdit = (entry) => {
         setEditingEntry(entry);
@@ -105,10 +115,22 @@ export default function LogisticsPanel() {
                 ) : (
                     <div className="logistics-grid">
                         {filteredLogistics.map(entry => (
-                            <div key={entry.id} className="logistics-card glass-card">
+                            <div key={entry.id} className={`logistics-card glass-card ${entry.completion_status === 'Completed' ? 'logistics-completed' : ''}`}>
                                 <div className="logistics-header">
-                                    <div className="service-type-badge">
-                                        {entry.service_type}
+                                    <button 
+                                        className={`status-toggle-btn ${entry.completion_status === 'Completed' ? 'checked' : ''}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleToggleStatus(entry);
+                                        }}
+                                        title={entry.completion_status === 'Completed' ? "Mark as Pending" : "Mark as Completed"}
+                                    >
+                                        {entry.completion_status === 'Completed' ? '✓' : ''}
+                                    </button>
+                                    <div className="logistics-info">
+                                        <div className="service-type-badge">
+                                            {entry.service_type}
+                                        </div>
                                     </div>
                                     <div className="badges-container">
                                         {entry.priority && (
