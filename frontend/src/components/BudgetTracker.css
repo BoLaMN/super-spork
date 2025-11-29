@@ -1,0 +1,114 @@
+.budget-tracker {
+    padding: var(--space-xl) var(--space-lg);
+}
+
+.budget-tracker .page-header {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.budget-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.budget-card {
+    padding: var(--space-xl);
+    text-align: center;
+}
+
+.budget-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+}
+
+.budget-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    margin-bottom: var(--space-md);
+}
+
+.budget-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.budget-percentage {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-top: var(--space-sm);
+}
+
+.budget-warning {
+    padding: var(--space-lg);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--color-accent-danger);
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-accent-danger);
+    margin-bottom: var(--space-xl);
+}
+
+.budget-section {
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+}
+
+.budget-section h2 {
+    margin-bottom: var(--space-lg);
+}
+
+.budget-breakdown-grid {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.budget-breakdown-item {
+    padding: var(--space-md);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.breakdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+}
+
+.breakdown-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.breakdown-amount {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.breakdown-stats {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+    .budget-tracker {
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .budget-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,40 @@
+services:
+  # Backend Service
+  - type: web
+    name: house-planner-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: house-planner-db
+          property: connectionString
+
+  # Frontend Service
+  - type: static
+    name: house-planner-frontend
+    env: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: house-planner-backend
+          envVarKey: RENDER_EXTERNAL_URL
+          # Note: You might need to append '/api' to this value in the Render dashboard
+          # or update the frontend to handle the base URL.
+          # For now, we'll rely on the user checking this.
+
+databases:
+  - name: house-planner-db
+    plan: free
+    databaseName: house_planner
+    user: house_planner
