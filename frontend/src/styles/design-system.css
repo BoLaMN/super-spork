@@ -73,13 +73,21 @@
   --font-display: 'Outfit', 'Inter', sans-serif;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
+  background-attachment: fixed;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
 body {
   font-family: var(--font-sans);
-  background: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
   color: var(--color-text-primary);
   line-height: 1.6;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* Background Animation - Removed for cleaner look */
