@@ -11,9 +11,7 @@ services:
       - key: NODE_VERSION
         value: 20.0.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: house-planner-db
-          property: connectionString
+        sync: false
 
   # Frontend Service
   - type: web
@@ -32,9 +30,3 @@ services:
           type: web
           name: house-planner-backend
           envVarKey: RENDER_EXTERNAL_URL
-
-databases:
-  - name: house-planner-db
-    plan: free
-    databaseName: house_planner
-    user: house_planner
